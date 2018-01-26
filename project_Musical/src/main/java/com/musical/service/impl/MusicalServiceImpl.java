@@ -26,12 +26,7 @@ public class MusicalServiceImpl implements MusicalService{
 
 		musicalDAO.insertMc(mc);
 		String[]files=mc.getFiles();
-		int mcno=musicalDAO.selectMaxmcno();
-		
-		if(files==null)return;
-		for(String mcname:files){
-			musicalDAO.insertAttach(mcname, mcno);
-		}
+				
 	}
 	@Transactional(propagation=Propagation.REQUIRED,
 			   rollbackFor={Exception.class})
@@ -41,22 +36,22 @@ public class MusicalServiceImpl implements MusicalService{
 		musicalDAO.updateMc(mc);
 		
 		int ttr_no=mc.getTtr_no();
-		musicalDAO.deleteAttach(ttr_no);
+		/*musicalDAO.deleteAttach(ttr_no);*/
 		
 		String[] files=mc.getFiles();
 		System.out.println(mc);
 		if(files==null){return;}
-		for(String mcname:files){
-			musicalDAO.replaceAttach(mcname, ttr_no);
+		for(String file_name:files){
+		/*	musicalDAO.replaceAttach(file_name, ttr_no);*/
 		}
 	}
 	@Transactional(propagation=Propagation.REQUIRED,
 		       rollbackFor={Exception.class})
 	@Override
-	public void deleteMc(int mcno) throws SQLException {
+	public void deleteMc(int ttr_no) throws SQLException {
 
-		musicalDAO.deleteMc(mcno);
-		musicalDAO.deleteAttach(mcno);
+		musicalDAO.deleteMc(ttr_no);
+/*		musicalDAO.deleteAttach(ttr_no);*/
 	}
 	@Transactional(isolation=Isolation.READ_COMMITTED,readOnly=true)
 	@Override
@@ -65,8 +60,8 @@ public class MusicalServiceImpl implements MusicalService{
 		return mcList;
 	}
 	@Override
-	public MusicalVO readMusicalBymcno(int mcno) throws SQLException {
-		MusicalVO mc=musicalDAO.selectMusicalBymcno(mcno);
+	public MusicalVO readMusicalBymcno(int ttr_no) throws SQLException {
+		MusicalVO mc=musicalDAO.selectMusicalBymcno(ttr_no);
 		return mc;
 	}
 	@Override
@@ -80,12 +75,12 @@ public class MusicalServiceImpl implements MusicalService{
 		int countList=musicalDAO.selectSearchListCount(cri);
 		return countList;
 	}
-	@Override
-	public List<String> getAttach(int mcno) throws SQLException {
-		List<String> mcnames=musicalDAO.selectAttach(mcno);
-		return mcnames;
+	/*@Override
+	public List<String> getAttach(int ttr_no) throws SQLException {
+		List<String> file_names=musicalDAO.selectAttach(ttr_no);
+		return file_names;
 	}
-	
+	*/
 	
 	
 	

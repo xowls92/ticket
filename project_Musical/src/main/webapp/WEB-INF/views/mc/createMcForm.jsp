@@ -17,32 +17,42 @@
 						</div>
 						<div>
 							<label>공연 종류</label>
-							<input type="text" name='cat' placeholder="공연 종류를 작성하세요.">
+							<input type="text" name='ttr_cat' placeholder="공연 종류를 작성하세요.">
 						</div>
 						<div>
 							<label>뮤지컬 제목</label> 
 							<input type="text"
-								name='title' placeholder="제목을 입력하세요.">
-						</div>
-						<div>							
-							<input type="date" name='sdate' placeholder="시작 날짜 작성">
+								name='ttr_title' placeholder="제목을 입력하세요.">
 						</div>
 						<div>
-							<input type="date" name='edate' placeholder="종료 날짜 작성">
+						<label>뮤지컬 시작날짜</label> 							
+							<input type="date" name='ttr_sdate' placeholder="시작 날짜 작성">
 						</div>
 						<div>
-							<input type="text" name='place' placeholder="장소 작성">
+						<label>뮤지컬 종료날짜</label> 
+							<input type="date" name='ttr_edate' placeholder="종료 날짜 작성">
 						</div>
 						<div>
-							<input type="text" name='time' placeholder="시간정보">
+						<label>뮤지컬 장소</label> 
+							<input type="text" name='ttr_place' placeholder="장소 작성">
 						</div>
 						<div>
-							<input type="text" name='alert' placeholder="알리는말">
+						<label>뮤지컬 시간정보</label> 
+							<input type="text" name='ttr_time' placeholder="시간정보">
+						</div>
+						<div>
+						<label>뮤지컬 알릴말</label> 
+							<input type="text" name='ttr_alert' placeholder="알리는말">
 						</div>
 						<div>
 							<label>뮤지컬 내용</label><br>
-							<textarea name="content" rows="30" cols="170"
+							<textarea name="ttr_content" rows="30" cols="170"
 								placeholder="내용을 입력하세요."></textarea>
+						</div>
+						<div>
+							<label>첨부파일</label>
+							<div class="file" style="width:800px; height:200px; background-color:gray;"></div>
+							
 						</div>
 					</div>
 					
@@ -51,10 +61,12 @@
 						<button type="submit">제출</button>
 					</div>
 				</form>
-
+			<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+			<script type="text/javascript" src="/resources/js/upload.js"></script>
 
 			</div>
 			
+</body>
 	
 
 

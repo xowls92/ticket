@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 				<div>
 					<div>
@@ -16,11 +17,12 @@
 								<tr>									
 									<td>${musicalVO.ttr_no}</td>
 									<td>사진</td>
-									<td><a href='readMcPage?mcno=${musicalVO.ttr_no}'>${musicalVO.ttr_title}</a></td>
+									<td><a href='readMcPage?ttr_no=${musicalVO.ttr_no}'>${musicalVO.ttr_title}</a></td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd"
 											value="${musicalVO.ttr_sdate}" /> ~</td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd"
 											value="${musicalVO.ttr_edate}" /></td>
+									<td>${musicalVO.ttr_content }</td>
 								</tr>
 
 							</c:forEach>

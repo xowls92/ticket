@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.musical.domain.MusicalVO;
+import com.musical.domain.MusicalVO2;
 import com.musical.service.MusicalService;
 
 @Controller
@@ -29,14 +30,17 @@ public class MusicalController {
 	}
 	
 	@RequestMapping("/readMcPage")
-	public void readMc(int mcno,Model model)throws Exception{
-		MusicalVO mc=musicalService.readMusicalBymcno(mcno);
+	public void readMc(int ttr_no,Model model)throws Exception{
+		MusicalVO mc=musicalService.readMusicalBymcno(ttr_no);
 		model.addAttribute(mc);
 	}
-	@RequestMapping(value="/modifyMusical",method=RequestMethod.GET)
-	public void modifyMusical(int mcno,Model model)throws Exception{
-		MusicalVO mc=musicalService.readMusicalBymcno(mcno);
-		model.addAttribute(mc);		
+	/*@RequestMapping(value="/modifyMusical",method=RequestMethod.GET)
+	public String modifyMusical(int ttr_no,Model model)throws Exception{
+		String url="/modifyPage";
+		MusicalVO mc=musicalService.readMusicalBymcno(ttr_no);
+		model.addAttribute(musicalService.readMusicalBymcno(ttr_no));
+		
+		return url;
 	}
 	
 	@RequestMapping(value="/modifyMusical",method=RequestMethod.POST)
@@ -45,11 +49,11 @@ public class MusicalController {
 		String url="redirect:/mc/mclistA";
 		musicalService.updateMc(mc);
 		return url;
-	}
-	@RequestMapping(value="/removeMusical",method=RequestMethod.GET)
-	public String removeMusical(int mcno)throws Exception{
-		String url="redirect:/mc/mclistA";
-		musicalService.deleteMc(mcno);
+	}*/
+	@RequestMapping(value="/removeMusical",method=RequestMethod.POST)
+	public String removeMusical(int ttr_no)throws Exception{
+		String url="redirect:/mclistA";
+		musicalService.deleteMc(ttr_no);
 		return url;
 	}
 	@RequestMapping(value="/createMusical",method=RequestMethod.GET)
@@ -59,41 +63,46 @@ public class MusicalController {
 	}
 	
 	@RequestMapping(value="/createMusical",method=RequestMethod.POST)
-	public String createMusical(MusicalVO mc)throws Exception{
-		String url="redirect:/mc/mclistA";
+	public String createMusical(MusicalVO2 mc2)throws Exception{
+	
+		MusicalVO mc=mc2.toMusicalVO();
 		musicalService.createMc(mc);
-		return url;
+		return "redirect:/mclistA";
+		/*String url="redirect:/mclistA";
+		musicalService.createMc(mc);
+		return url;*/
 	}
 	@RequestMapping(value="/readMcPage",method=RequestMethod.GET)
-	public String readPage(@RequestParam("mcno") int mcno,Model model)throws Exception{
+	public String readPage(@RequestParam("ttr_no") int ttr_no,Model model)throws Exception{
 		String url="/mc/readMcPage";
 		
-		MusicalVO mc=musicalService.readMusicalBymcno(mcno);
+		MusicalVO mc=musicalService.readMusicalBymcno(ttr_no);
 		model.addAttribute(mc);
 		
 		return url;
 	}
-	@RequestMapping(value="/modifyPageForm",method=RequestMethod.GET)
-	public String modifyPageForm(@RequestParam("mcno") int mcno, Model model)throws Exception{
+	@RequestMapping(value="/modifyPageForm", method=RequestMethod.GET)
+	public String modifyPageForm(@RequestParam("ttr_no") int ttr_no, Model model)throws Exception{
 		String url="/mc/modifyPage";
-		MusicalVO mc=musicalService.readMusicalBymcno(mcno);
+		MusicalVO mc=musicalService.readMusicalBymcno(ttr_no);
 		model.addAttribute(mc);
 		
 		return url;
 	}
 	
 	@RequestMapping(value="/modifyPage",method=RequestMethod.POST)
-	public String modifyPage(MusicalVO mc,RedirectAttributes rttr)throws Exception{
-		musicalService.updateMc(mc);
+	public String modifyPage(MusicalVO2 mc,RedirectAttributes rttr)throws Exception{
+		MusicalVO musical=mc.toMusicalVO();
+		musicalService.updateMc(musical);
 		
-		return "redirect:/mc/modifyList";
+		return "redirect:/mclistA";
 	}
-	@RequestMapping(value="/removePage",method=RequestMethod.POST)
-	public String removeMusical(int mcno,RedirectAttributes rttr)throws Exception{
+	/*@RequestMapping(value="/removePage",method=RequestMethod.POST)
+	public String removeMusical(int ttr_no,RedirectAttributes rttr)throws Exception{
 		String url="redirect:/mc/mclistA";
-		musicalService.deleteMc(mcno);
+		musicalService.deleteMc(ttr_no);
 		return url;
-	}
+	}*/
 	@RequestMapping(value="/createPage",method=RequestMethod.GET)
 	public String createPage()throws Exception{
 		String url="mc/createMcForm";

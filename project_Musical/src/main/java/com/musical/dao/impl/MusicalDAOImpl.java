@@ -22,7 +22,7 @@ public class MusicalDAOImpl implements MusicalDAO{
 	@Override
 	public void insertMc(MusicalVO mc) throws SQLException {
 		
-		sqlSession.update(NAMESPACE+".insertMc",mc);
+		sqlSession.update(NAMESPACE+".insertMusical",mc);
 		
 	}
 
@@ -33,9 +33,9 @@ public class MusicalDAOImpl implements MusicalDAO{
 	}
 
 	@Override
-	public void deleteMc(int mcno) throws SQLException {
+	public void deleteMc(int ttr_no) throws SQLException {
 		
-		sqlSession.update(NAMESPACE+".deleteMc",mcno);
+		sqlSession.update(NAMESPACE+".deleteMc",ttr_no);
 	}
 
 	@Override
@@ -46,8 +46,8 @@ public class MusicalDAOImpl implements MusicalDAO{
 	}
 
 	@Override
-	public MusicalVO selectMusicalBymcno(int mcno) throws SQLException {
-		MusicalVO mc = (MusicalVO)sqlSession.selectOne(NAMESPACE+".selectMusicalBymcno",mcno);
+	public MusicalVO selectMusicalBymcno(int ttr_no) throws SQLException {
+		MusicalVO mc = (MusicalVO)sqlSession.selectOne(NAMESPACE+".selectMusicalBymcno",ttr_no);
 		return mc;
 	}
 
@@ -65,42 +65,37 @@ public class MusicalDAOImpl implements MusicalDAO{
 		return listCount;
 	}
 
-	@Override
-	public void insertAttach(String mcname, int mcno) throws SQLException {
+	/*@Override
+	public void insertAttach(String file_name, int ttr_no) throws SQLException {
 		Map<String,Object> paramMap=new HashMap<String,Object>();
-		paramMap.put("mcname",mcname);
-		paramMap.put("mcno",mcno);
+		paramMap.put("mcname",file_name);
+		paramMap.put("ttr_no",ttr_no);
 		
 		sqlSession.update(NAMESPACE+".insertAttach",paramMap);
 		
 	}
-
+	
 	@Override
-	public int selectMaxmcno() throws SQLException {
-		return (Integer)sqlSession.selectOne(NAMESPACE+".selectMaxmcno",null);
-	}
-
-	@Override
-	public List<String> selectAttach(int mcno) throws SQLException {
-		List<String> files=sqlSession.selectList(NAMESPACE+".selectAttach",mcno);
+	public List<String> selectAttach(int ttr_no) throws SQLException {
+		List<String> files=sqlSession.selectList(NAMESPACE+".selectAttach",ttr_no);
 		return files;
 	}
 
 	@Override
-	public void deleteAttach(int mcno) throws SQLException {
+	public void deleteAttach(int ttr_no) throws SQLException {
 
-		sqlSession.update(NAMESPACE+".deleteAttach",mcno);
+		sqlSession.update(NAMESPACE+".deleteAttach",ttr_no);
 	}
 
 	@Override
-	public void replaceAttach(String mcname, int mcno) throws SQLException {
+	public void replaceAttach(String file_name, int ttr_no) throws SQLException {
 
 		Map<String,Object>paraMap=new HashMap<String,Object>();
 		
-		paraMap.put("mcname", mcname);
-		paraMap.put("mcno", mcno);
+		paraMap.put("mcname", file_name);
+		paraMap.put("ttr_no", ttr_no);
 		
 		sqlSession.update(NAMESPACE+".replaceAttach",paraMap);
-	}
+	}*/
 
 }

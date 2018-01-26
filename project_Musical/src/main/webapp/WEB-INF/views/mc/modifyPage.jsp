@@ -1,45 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<!-- Main content -->
-<section class="content">
-	<div class="row">
-		<!-- left column -->
-		<div class="col-md-12">
-			<!-- general form elements -->
-			<div class="box box-primary">
-				<div class="box-header">
-					<h3 class="box-title">수정페이지</h3>
-				</div>
-				<!-- /.box-header -->
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<div>
+	<h3>수정페이지</h3>
+</div>
+				
 
 <form role="form" method="post">
-	
-	<input type='hidden' name='page' value="${cri.page }" /> 
-	<input type='hidden' name='perPageNum' value="${cri.perPageNum }" />
+	<input type='hidden' name='ttr_no' value="${musicalVO.ttr_no}" />
 	 
-	<div class="box-body">
-
-		<div class="form-group">
-			<label for="exampleInputEmail1">글번호</label> <input type="text"
-				name='mcno' class="form-control" value="${musicalVO.ttr_no}"
-				readonly="readonly">
+	<div>
+		<div>
+		<label>제목</label> 
+		<input type="text" name='title' value="${musicalVO.ttr_title}">
+		<div>
+			<label>내용</label>
+			<textarea name="content" rows="30">
+				${musicalVO.ttr_content}
+			</textarea>
 		</div>
-
-		<div class="form-group">
-			<label for="exampleInputEmail1">글제목</label> <input type="text"
-				name='title' class="form-control" value="${musicalVO.ttr_title}">
+		<div>
+			<label>장소</label> 
+			<input type="text" name="place" value="${musicalVO.ttr_place}">
 		</div>
-		<div class="form-group">
-			<label for="exampleInputPassword1">내용</label>
-			<textarea class="form-control" name="content" rows="3">${musicalVO.ttr_content}</textarea>
+		<div>
+			<label>알림</label> 
+			<input type="text" name="place" value="${musicalVO.ttr_alert}" readonly="readonly">
 		</div>
-		<div class="form-group">
-			<label>장소</label> <input
-				type="text" name="place" class="form-control"
-				value="${musicalVO.ttr_place}">
+		<div>
+			<label>시간정보</label> 
+			<input type="text" name="place" value="${musicalVO.ttr_time}" readonly="readonly">
 		</div>
+		<div>
+			<label>시작일</label>
+			<input type="date" value="<fmt:formatDate pattern="yyyy-MM-dd" value="${musicalVO.ttr_sdate}" />" >~
+		</div>
+		
+		<div>
+			<label>종료일</label>
+			<input type="date" value="<fmt:formatDate pattern="yyyy-MM-dd" value="${musicalVO.ttr_edate}" />" >	
+		</div>
+	</div>
 	</div>	
 	<!-- /.box-body -->
 </form>
@@ -74,19 +79,7 @@
 
 
 
-			</div>
-			<!-- /.box -->
-		</div>
-		<!--/.col (left) -->
-
-	</div>
-	<!-- /.row -->
-</section>
-<!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
-
-
+			
 
 
 

@@ -1,27 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <div>
 	<div>
 		<h3>뮤지컬</h3>
 	</div>
 
 <form role="form" method="post">
-	<input type='hidden' name='mcno' value="${musicalVO.ttr_no}" />
+	<input type='hidden' name='ttr_no' value="${musicalVO.ttr_no}" />
 	
-	<input type='hidden' name='page' value="${cri.page }" /> 
-	<input type='hidden' name='perPageNum' value="${cri.perPageNum }" /> 
 	
 
-</form>
-
-<div class="box-body">
-	<div class="form-group">
-		<label for="exampleInputEmail1">제목</label> <input type="text"
-			name='title' class="form-control" value="${musicalVO.ttr_title}"
-			readonly="readonly">
+<div>
+	<div>
+		<label>제목</label> 
+		<input type="text" name='title' value="${musicalVO.ttr_title}" readonly="readonly">
 	</div>
 	<div>
 		<label>내용</label>
@@ -30,24 +27,38 @@
 		</textarea>
 	</div>
 	<div>
-		<label>장소</label> <input type="text" name="place" value="${musicalVO.ttr_place}"
-			readonly="readonly">
+		<label>장소</label> 
+		<input type="text" name="place" value="${musicalVO.ttr_place}" readonly="readonly">
+	</div>
+	<div>
+		<label>알림</label> 
+		<input type="text" name="place" value="${musicalVO.ttr_alert}" readonly="readonly">
+	</div>
+	<div>
+		<label>시간정보</label> 
+		<input type="text" name="place" value="${musicalVO.ttr_time}" readonly="readonly">
+	</div>
+	<div>
+		<label>시작일</label>
+		<input type="text" value="<fmt:formatDate pattern="yyyy-MM-dd" value="${musicalVO.ttr_sdate}" />" readonly="readonly">~
+	</div>
+	
+	<div>
+		<label>종료일</label>
+		<input type="text" value="<fmt:formatDate pattern="yyyy-MM-dd" value="${musicalVO.ttr_edate}" />" readonly="readonly">	
 	</div>
 </div>
-
+</form>
 <!-- /.box-body -->
 
 <div>
-	<!-- <button type="submit" class="btn btn-warning">수정</button>
-	<button type="submit" class="btn btn-danger">삭제</button>
-	<button type="submit" class="btn btn-primary">목록</button> -->
+	
 	<a href=""><button type="submit">예약</button></a>
-	<a href="modifyPage"><button type="submit" onclick="location.href='modifyPage?ttr_no=${musicalVO.ttr_no}'">수정</button></a>
-	<button type="submit" onclick="location='deleteMc?ttr_no=${musicalVO.ttr_no}'">삭제</button>
-	<a href="mclistA"><button type="submit" class="btn btn-primary">목록</button></a>
+	<button type="submit" class="btn btn-warning">수정</button>
+	<button type="submit" class="btn btn-danger">삭제</button>
+	<a href="mclistA"><button type="submit">목 록</button></a>
 	<a href=""><button type="submit">찜하기</button></a>
 </div>
-
 
 				<script>
 				
@@ -58,37 +69,45 @@ $(document).ready(function(){
 	console.log(formObj);
 	
 	$(".btn-warning").on("click", function(){		
-		formObj.attr("action", "modifyPage");		
+		formObj.attr("action", "modifyPageForm");		
 		formObj.attr("method", "get");		
 		formObj.submit();
 	});
 	
 	$(".btn-danger").on("click", function(){
-		formObj.attr("action", "removePage");
+		formObj.attr("action", "removeMusical");
 		formObj.submit();
 	});
 	
 	$(".btn-primary").on("click", function(){
-		formObj.attr("action", "mclistA");
-		formObj.attr("method", "get");
-		formObj.submit();
+		self.location = "listAll";
 	});
 	
 });
 
 </script>
 
+<!-- <script>
+				
+$(document).ready(function(){
+	
+	var formObj = $("form[role='form']");
+	
+	console.log(formObj);
+	
+	
+	$(".btn-danger").on("click", function(){
+		formObj.attr("action", "removeMusical");
+		formObj.submit();
+	});
+	
+	
+});
+
+</script> -->
 
 
 
-			</div>
-			<!-- /.box -->
-		</div>
-		<!--/.col (left) -->
-
-	</div>
-	<!-- /.row -->
-</section>
-<!-- /.content -->
 </div>
-<!-- /.content-wrapper -->
+		
+		
