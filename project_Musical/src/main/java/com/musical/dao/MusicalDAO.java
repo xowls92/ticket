@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.musical.domain.MusicalVO;
 import com.musical.domain.SearchCriteria;
+import com.musical.domain.Seatinfo;
 
 public interface MusicalDAO {
 
@@ -16,13 +17,29 @@ public interface MusicalDAO {
 
 	//검색조건의 동적 쿼리문
 	List<MusicalVO> selectSearchList(SearchCriteria cri)throws SQLException;
-	int selectSearchListCount(SearchCriteria cri) throws SQLException;
+	int selectSearchListCount() throws SQLException;
 	
-	/*//파일 추가/삭제
-	void insertAttach(String file_name,int ttr_no)throws SQLException;//첨부파일 이름
+	//첨부파일 추가/삭제
+	void insertAttach(String file_name,int ttr_no)throws SQLException;
 	List<String> selectAttach(int ttr_no)throws SQLException;
 	void deleteAttach(int ttr_no)throws SQLException;
-	void replaceAttach(String file_name,int ttr_no)throws SQLException;*/
+
+	//썸네일추가
+	void insertThumb(String thumb_name,int ttr_no) throws SQLException;
+	void deleteThumb(int ttr_no) throws SQLException;
+	String selectThumb(int ttr_no) throws SQLException;
 	
+	//구조도추가
+	void insertseatmap(String seatmap_name,int ttr_no) throws SQLException;
+	void deleteseatmap(int ttr_no) throws SQLException;
+	String selectseatmap(int ttr_no) throws SQLException;
 	
+	void insertseat(Seatinfo seat) throws SQLException;
+	void deleteseatbyseat_id(String seat_id) throws SQLException;
+	void deleteseatbyttr_no(int ttr_no) throws SQLException;
+	void updateseatbyseat_id(Seatinfo seat) throws SQLException;
+	void updateseatbyttr_no(Seatinfo seat) throws SQLException;
+	List<Seatinfo> selectseatbyttr_no(int ttr_no) throws SQLException;
+	Seatinfo selectseatbyseat_id(String seat_id) throws SQLException;
+	List<Seatinfo> selectseat() throws SQLException;
 }

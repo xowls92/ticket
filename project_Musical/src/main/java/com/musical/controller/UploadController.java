@@ -28,31 +28,29 @@ public class UploadController {
 	private String uploadPath;
 
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
-	public void uploadForm() {
-	}
-
+	public void uploadForm() {}
+	
 	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	public ResponseEntity<String> uploadFile(MultipartFile file)
 			throws Exception {
-		return new ResponseEntity<String>(UploadFileUtils.uploadFile(uploadPath,
+		return new ResponseEntity<String>(UploadFileUtils.uploadFileUtils(uploadPath,
 				file.getOriginalFilename(), file.getBytes()),
 				HttpStatus.CREATED);
 	}
-
+	
+	
 	@RequestMapping("/displayFile")
-	public ResponseEntity<byte[]> displayFile(String fileName)
-										throws Exception{
+	public ResponseEntity<byte[]> displayFile(String fileName)throws Exception{
 		
 		InputStream in=null;
 		ResponseEntity<byte[]> entity=null;
+		
 		try{
 			String formatName=fileName.substring(fileName.lastIndexOf(".")+1);
 			MediaType mType=MediaUtils.getMediaType(formatName);
 			HttpHeaders headers=new HttpHeaders();
 			
 			fileName=fileName.replace('/', File.separatorChar);
-			
-			
 			
 			if(mType!=null){
 				headers.setContentType(mType);
@@ -64,6 +62,7 @@ public class UploadController {
 			}
 			String asd=new String(fileName.getBytes("8859_1"),"utf-8");
 			in = new FileInputStream(uploadPath+asd);
+			
 			entity=new ResponseEntity<byte[]>(IOUtils.toByteArray(in),
 					headers,HttpStatus.CREATED);
 			
@@ -123,3 +122,21 @@ public class UploadController {
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

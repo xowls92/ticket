@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ResMapper">
+	<update id="insertRes">
+		insert into reserve(res_id,res_date,res_nom,seat_id,mem_id,ttr_no)
+		values(ttr_seq.nextval,#{res_id},#{res_date},#{res_nom},#{seat_id},#{mem_id})
+	</update>
+	<select id="selectResByTno" resultType="Res">
+		select
+		ttr_no,res_id,res_date,res_nom,seat_id,mem_id
+		from reserve
+		where ttr_no=#{ttr_no}
+	</select>
+	<update id="deleteRes">
+		delete from reserve where ttr_no=#{ttr_no}
+	</update>
+	<select id="selectResList" resultType="Res">
+		<![CDATA[
+			select ttr_no,res_id,res_date,res_nom,seat_id,mem_id
+			from reserve
+			where ttr_no > 0
+			order by ttr_no desc
+		]]>
+	</select>
+	
+	<select id="selectSearchResList" resultType="Res">
+	<![CDATA[ 
+		select *
+		from reserve
+		where ttr_no > 0		
+	]]>
+		
+		order by ttr_no desc
+	</select>
+	<select id="selectSearchResCount" resultType="int">
+		<![CDATA[  
+		  select count(ttr_no) 
+		  from reserve 
+		  where ttr_no > 0 
+		]]>
+			
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

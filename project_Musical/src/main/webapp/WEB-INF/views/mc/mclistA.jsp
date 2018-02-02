@@ -16,7 +16,7 @@
 							<c:forEach items="${list}" var="musicalVO">
 								<tr>									
 									<td>${musicalVO.ttr_no}</td>
-									<td>사진</td>
+									<td><img src="/displayFile?fileName=${musicalVO.thumb_name}"></td>
 									<td><a href='readMcPage?ttr_no=${musicalVO.ttr_no}'>${musicalVO.ttr_title}</a></td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd"
 											value="${musicalVO.ttr_sdate}" /> ~</td>

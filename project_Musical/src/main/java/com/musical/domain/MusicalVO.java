@@ -16,14 +16,22 @@ public class MusicalVO {
 	private String ttr_time;//시간정보
 	private String ttr_alert;//알림
 	private String ttr_content;//상세설명
+	private String thumb_name;//썸네일
+	private String seatmap_name;//자리	
+	private String[] files; //첨부파일
+	private String[] seat_grd;//자리등급
+	private String[] seat_no; //자리번호
+	private String[] seat_pri; //자리 가격
+	private Date[] seat_time; //선택 시간
 	
-	private String[] files;
 	
 	public MusicalVO(){}
 	public MusicalVO(int ttr_no, String com_id, String ttr_cat,
 			String ttr_title, Date ttr_date, Date ttr_sdate, Date ttr_edate,
 			String ttr_place, String ttr_time, String ttr_alert,
-			String ttr_content, String[] files) {
+			String ttr_content, String thumb_name, String seatmap_name,
+			String[] files, String[] seat_grd, String[] seat_no,
+			String[] seat_pri, Date[] seat_time) {
 		super();
 		this.ttr_no = ttr_no;
 		this.com_id = com_id;
@@ -36,106 +44,14 @@ public class MusicalVO {
 		this.ttr_time = ttr_time;
 		this.ttr_alert = ttr_alert;
 		this.ttr_content = ttr_content;
+		this.thumb_name = thumb_name;
+		this.seatmap_name = seatmap_name;
 		this.files = files;
+		this.seat_grd = seat_grd;
+		this.seat_no = seat_no;
+		this.seat_pri = seat_pri;
+		this.seat_time = seat_time;
 	}
-	public int getTtr_no() {
-		return ttr_no;
-	}
-
-	public void setTtr_no(int ttr_no) {
-		this.ttr_no = ttr_no;
-	}
-
-	public String getCom_id() {
-		return com_id;
-	}
-
-	public void setCom_id(String com_id) {
-		this.com_id = com_id;
-	}
-
-	public String getTtr_cat() {
-		return ttr_cat;
-	}
-
-	public void setTtr_cat(String ttr_cat) {
-		this.ttr_cat = ttr_cat;
-	}
-
-	public String getTtr_title() {
-		return ttr_title;
-	}
-
-	public void setTtr_title(String ttr_title) {
-		this.ttr_title = ttr_title;
-	}
-
-	public Date getTtr_date() {
-		return ttr_date;
-	}
-
-	public void setTtr_date(Date ttr_date) {
-		this.ttr_date = ttr_date;
-	}
-
-	public Date getTtr_sdate() {
-		return ttr_sdate;
-	}
-
-	public void setTtr_sdate(Date ttr_sdate) {
-		this.ttr_sdate = ttr_sdate;
-	}
-
-	public Date getTtr_edate() {
-		return ttr_edate;
-	}
-
-	public void setTtr_edate(Date ttr_edate) {
-		this.ttr_edate = ttr_edate;
-	}
-
-	public String getTtr_place() {
-		return ttr_place;
-	}
-
-	public void setTtr_place(String ttr_place) {
-		this.ttr_place = ttr_place;
-	}
-
-	public String getTtr_time() {
-		return ttr_time;
-	}
-
-	public void setTtr_time(String ttr_time) {
-		this.ttr_time = ttr_time;
-	}
-
-	public String getTtr_alert() {
-		return ttr_alert;
-	}
-
-	public void setTtr_alert(String ttr_alert) {
-		this.ttr_alert = ttr_alert;
-	}
-
-	public String getTtr_content() {
-		return ttr_content;
-	}
-
-	public void setTtr_content(String ttr_content) {
-		this.ttr_content = ttr_content;
-	}
-
-	public String[] getFiles() {
-		return files;
-	}
-
-	public void setFiles(String[] files) {
-		this.files = files;
-	}
-
-	
-
 	@Override
 	public String toString() {
 		return "MusicalVO [ttr_no=" + ttr_no + ", com_id=" + com_id
@@ -143,9 +59,122 @@ public class MusicalVO {
 				+ ", ttr_date=" + ttr_date + ", ttr_sdate=" + ttr_sdate
 				+ ", ttr_edate=" + ttr_edate + ", ttr_place=" + ttr_place
 				+ ", ttr_time=" + ttr_time + ", ttr_alert=" + ttr_alert
-				+ ", ttr_content=" + ttr_content + ", files="
-				+ Arrays.toString(files) + "]";
+				+ ", ttr_content=" + ttr_content + ", thumb_name=" + thumb_name
+				+ ", seatmap_name=" + seatmap_name + ", files="
+				+ Arrays.toString(files) + ", seat_grd="
+				+ Arrays.toString(seat_grd) + ", seat_no="
+				+ Arrays.toString(seat_no) + ", seat_pri="
+				+ Arrays.toString(seat_pri) + ", seat_time="
+				+ Arrays.toString(seat_time) + "]";
 	}
-	
+	public int getTtr_no() {
+		return ttr_no;
+	}
+	public void setTtr_no(int ttr_no) {
+		this.ttr_no = ttr_no;
+	}
+	public String getCom_id() {
+		return com_id;
+	}
+	public void setCom_id(String com_id) {
+		this.com_id = com_id;
+	}
+	public String getTtr_cat() {
+		return ttr_cat;
+	}
+	public void setTtr_cat(String ttr_cat) {
+		this.ttr_cat = ttr_cat;
+	}
+	public String getTtr_title() {
+		return ttr_title;
+	}
+	public void setTtr_title(String ttr_title) {
+		this.ttr_title = ttr_title;
+	}
+	public Date getTtr_date() {
+		return ttr_date;
+	}
+	public void setTtr_date(Date ttr_date) {
+		this.ttr_date = ttr_date;
+	}
+	public Date getTtr_sdate() {
+		return ttr_sdate;
+	}
+	public void setTtr_sdate(Date ttr_sdate) {
+		this.ttr_sdate = ttr_sdate;
+	}
+	public Date getTtr_edate() {
+		return ttr_edate;
+	}
+	public void setTtr_edate(Date ttr_edate) {
+		this.ttr_edate = ttr_edate;
+	}
+	public String getTtr_place() {
+		return ttr_place;
+	}
+	public void setTtr_place(String ttr_place) {
+		this.ttr_place = ttr_place;
+	}
+	public String getTtr_time() {
+		return ttr_time;
+	}
+	public void setTtr_time(String ttr_time) {
+		this.ttr_time = ttr_time;
+	}
+	public String getTtr_alert() {
+		return ttr_alert;
+	}
+	public void setTtr_alert(String ttr_alert) {
+		this.ttr_alert = ttr_alert;
+	}
+	public String getTtr_content() {
+		return ttr_content;
+	}
+	public void setTtr_content(String ttr_content) {
+		this.ttr_content = ttr_content;
+	}
+	public String getThumb_name() {
+		return thumb_name;
+	}
+	public void setThumb_name(String thumb_name) {
+		this.thumb_name = thumb_name;
+	}
+	public String getSeatmap_name() {
+		return seatmap_name;
+	}
+	public void setSeatmap_name(String seatmap_name) {
+		this.seatmap_name = seatmap_name;
+	}
+	public String[] getFiles() {
+		return files;
+	}
+	public void setFiles(String[] files) {
+		this.files = files;
+	}
+	public String[] getSeat_grd() {
+		return seat_grd;
+	}
+	public void setSeat_grd(String[] seat_grd) {
+		this.seat_grd = seat_grd;
+	}
+	public String[] getSeat_no() {
+		return seat_no;
+	}
+	public void setSeat_no(String[] seat_no) {
+		this.seat_no = seat_no;
+	}
+	public String[] getSeat_pri() {
+		return seat_pri;
+	}
+	public void setSeat_pri(String[] seat_pri) {
+		this.seat_pri = seat_pri;
+	}
+	public Date[] getSeat_time() {
+		return seat_time;
+	}
+	public void setSeat_time(Date[] seat_time) {
+		this.seat_time = seat_time;
+	}
+
 	
 }

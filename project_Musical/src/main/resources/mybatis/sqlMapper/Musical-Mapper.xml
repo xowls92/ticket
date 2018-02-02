@@ -33,7 +33,24 @@
 		 	where ttr_no > 0
 	 	]]>
 	</select>
-	<update id="insertAttach">
+	<update id="insertfile">
+		insert into file_tbl(file_id,file_name,ttr_no)
+		values(file_seq.nextval,#{file_name},#{ttr_no})
+	</update>
+	
+	<update id="deletefile">
+		delete from file_tbl
+		where ttr_no=#{ttr_no}
+	</update>
+	
+	<select id="selectfile" resultType="str">
+		select file_name 
+		from file_tbl
+		where ttr_no=#{ttr_no}
+		order by file_id
+	</select>
+	
+	<!-- <update id="insertAttach">
 		insert into file_tbl(file_name,ttr_no) 
 		values(#{file_name},#{ttr_no})
 	</update>
@@ -50,7 +67,7 @@
 	<update id="replaceAttach">
 		insert into file_tbl(file_name,ttr_no)
 		values(#{file_name},#{ttr_no})
-	</update>
+	</update> -->
 </mapper>
 
 

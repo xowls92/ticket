@@ -6,5 +6,7 @@
 		<typeAlias alias="str" type="java.lang.String" />
 		<typeAlias alias="int" type="java.lang.Integer" />
 		<typeAlias alias="mc" type="com.musical.domain.MusicalVO" />
-		</typeAliases>	
+		<typeAlias alias="Res" type="com.musical.domain.ReservationVO" />
+	</typeAliases>
+	
 </configuration>

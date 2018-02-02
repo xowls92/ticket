@@ -9,8 +9,16 @@
 				</div>
 				
 
-				<form role="form" method="post">
+				<form id="write" method="post">
 					<div>						
+						<label>썸네일</label>
+						<div class="thumb"
+							style="width: 200px; height: 200px; background-color: gray;">
+						</div>
+						<label>좌석배치도</label>
+						<div class="seatmap"
+							style="width: 200px; height: 200px; background-color: gray;">
+						</div>
 						<div>
 							<label>기업회원 아이디</label>
 							<input type="text" name='com_id' placeholder="기업회원 아이디">
@@ -50,8 +58,9 @@
 								placeholder="내용을 입력하세요."></textarea>
 						</div>
 						<div>
-							<label>첨부파일</label>
-							<div class="file" style="width:800px; height:200px; background-color:gray;"></div>
+							<label>사진첨부</label>
+							<div class="file" 
+							style="width:800px; height:200px; background-color:gray;"></div>
 							
 						</div>
 					</div>
@@ -62,10 +71,8 @@
 					</div>
 				</form>
 			<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-			<script type="text/javascript" src="/resources/js/upload.js"></script>
+			<script src="resources/js/upload.js"></script>
 
-			</div>
-			
 </body>
 	
 

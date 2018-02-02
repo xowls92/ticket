@@ -45,4 +45,13 @@
 	<bean	id="MusicalService"
 			class="com.musical.service.impl.MusicalServiceImpl"
 			p:musicalDAO-ref="MusicalDAO"/>
+	
+	<bean 	id="ReservationDAO"
+			class="com.musical.dao.impl.ReservationDAOImpl"
+			p:sqlSession-ref="sqlSession"
+			/>
+	<bean	id="ReservationService"
+			class="com.musical.service.impl.ReservationServiceImpl"
+			p:reservationDAO-ref="ReservationDAO"/>
+	
 </beans>

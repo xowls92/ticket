@@ -9,30 +9,20 @@ import java.util.UUID;
 import javax.imageio.ImageIO;
 
 import org.imgscalr.Scalr;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.FileCopyUtils;
 
 public class UploadFileUtils {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(UploadFileUtils.class);
-
-	// uploaded file icon 생성
-
-	// uploadFile 저장
-	public static String uploadFile(String uploadPath, String originalName,
+	public static String uploadFileUtils(String uploadPath, String originalName,
 			byte[] fileData) throws Exception {
 		UUID uid = UUID.randomUUID();
 		String savedName = uid.toString().replace("-", "") + "_" + originalName;
 		String savedPath = calcPath(uploadPath);
 
-		File target = new File(uploadPath + savedPath, savedName); //파일생성
-		
+		File target = new File(uploadPath + savedPath, savedName); // 파일생성
+
 		FileCopyUtils.copy(fileData, target);// 파일저장
-		
-		logger.info(target.getAbsolutePath());
-		
+
 		String formatName = originalName.substring(originalName
 				.lastIndexOf(".") + 1);
 
@@ -50,62 +40,57 @@ public class UploadFileUtils {
 		return uploadFileName;
 	}
 
-	// 아이콘 형태
 	public static String makeIcon(String uploadPath, String path,
-			String fileName)throws Exception {
-		
-		String iconName=uploadPath+path+File.separator+fileName;
-		
-		return iconName.substring(uploadPath.length())
-				.replace(File.separatorChar,'/');
+			String fileName) throws Exception {
+
+		String iconName = uploadPath + path + File.separator + fileName;
+
+		return iconName.substring(uploadPath.length()).replace(
+				File.separatorChar, '/');
 	}
 
-	// 썸네일 형태
 	public static String makeThumbnail(String uploadPath, String path,
-			String fileName)throws Exception {
-		
-		BufferedImage sourceImg=ImageIO.read(
-				new File(uploadPath+path,fileName));
-		
-		BufferedImage destImg = Scalr.resize(sourceImg,
-											 Scalr.Method.AUTOMATIC,
-											 Scalr.Mode.FIT_TO_HEIGHT,100);
-		String thumbnailName=uploadPath+path+File.separator+"s_"+fileName;
-		
-		File newFile=new File(thumbnailName);
-		String formatName=fileName.substring(fileName.lastIndexOf(".")+1);
-		
+			String fileName) throws Exception {
+
+		BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path,
+				fileName));
+
+		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC,
+				Scalr.Mode.FIT_TO_HEIGHT, 100);
+		String thumbnailName = uploadPath + path + File.separator + "s_"
+				+ fileName;
+
+		File newFile = new File(thumbnailName);
+		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+
 		ImageIO.write(destImg, formatName.toUpperCase(), newFile);
-		
-		return thumbnailName.substring(uploadPath.length())
-				.replace(File.separatorChar,'/');		
+
+		return thumbnailName.substring(uploadPath.length()).replace(
+				File.separatorChar, '/');
 	}
 
-	// upload folder 지정.
-	public static String calcPath(String uploadPath)throws Exception {
-		
-		Calendar cal=Calendar.getInstance();
-		
-		String yearPath=File.separator+cal.get(Calendar.YEAR);
-		String monthPath=yearPath+File.separator+
-				new DecimalFormat("00").format(cal.get(Calendar.MONTH)+1);
-		String datePath=monthPath+File.separator+
-				new DecimalFormat("00").format(cal.get(Calendar.DATE));
-		
-		makeDir(uploadPath,yearPath,monthPath,datePath);
-		
-		logger.info(datePath);
-		
+	public static String calcPath(String uploadPath) throws Exception {
+
+		Calendar cal = Calendar.getInstance();
+
+		String yearPath = File.separator + cal.get(Calendar.YEAR);
+		String monthPath = yearPath + File.separator
+				+ new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+		String datePath = monthPath + File.separator
+				+ new DecimalFormat("00").format(cal.get(Calendar.DATE));
+
+		makeDir(uploadPath, yearPath, monthPath, datePath);
+
 		return datePath;
 	}
-	
-	public static void makeDir(String uploadPath, String... paths){
-		if(new File(paths[paths.length-1]).exists()){
+
+	public static void makeDir(String uploadPath, String... paths) {
+		if (new File(paths[paths.length - 1]).exists()) {
 			return;
 		}
-		for(String path:paths){
-			File dirPath=new File(uploadPath+path);
-			if(!dirPath.exists()){
+		for (String path : paths) {
+			File dirPath = new File(uploadPath + path);
+			if (!dirPath.exists()) {
 				dirPath.mkdir();
 			}
 		}

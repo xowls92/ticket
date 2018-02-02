@@ -11,39 +11,56 @@
 				
 
 <form role="form" method="post">
-	<input type='hidden' name='ttr_no' value="${musicalVO.ttr_no}" />
-	 
+	
+		<input type='hidden' name='ttr_no' value="${musicalVO.ttr_no}" />
+	 	<input type="hidden" name='com_id' value="${musicalVO.com_id}" />
 	<div>
+		<label>썸네일</label>
+		<div class="thumb"
+			style="width: 200px; height: 200px; background-color: gray;">
+		</div>
+		<label>좌석배치도</label>
+		<div class="seatmap"
+			style="width: 200px; height: 200px; background-color: gray;">
+		</div>
 		<div>
-		<label>제목</label> 
-		<input type="text" name='title' value="${musicalVO.ttr_title}">
+			<label>카테고리</label> 
+			<input type="text" name='ttr_cat' value="${musicalVO.ttr_cat}">
+		</div>
+		<div>
+			<label>제목</label> 
+			<input type="text" name='ttr_title' value="${musicalVO.ttr_title}">
 		<div>
 			<label>내용</label>
-			<textarea name="content" rows="30">
+			<textarea name="ttr_content" rows="30">
 				${musicalVO.ttr_content}
 			</textarea>
 		</div>
 		<div>
 			<label>장소</label> 
-			<input type="text" name="place" value="${musicalVO.ttr_place}">
+			<input type="text" name="ttr_place" value="${musicalVO.ttr_place}">
 		</div>
 		<div>
 			<label>알림</label> 
-			<input type="text" name="place" value="${musicalVO.ttr_alert}" readonly="readonly">
+			<input type="text" name="ttr_alert" value="${musicalVO.ttr_alert}">
 		</div>
 		<div>
 			<label>시간정보</label> 
-			<input type="text" name="place" value="${musicalVO.ttr_time}" readonly="readonly">
+			<input type="text" name="ttr_time" value="${musicalVO.ttr_time}">
 		</div>
 		<div>
 			<label>시작일</label>
-			<input type="date" value="<fmt:formatDate pattern="yyyy-MM-dd" value="${musicalVO.ttr_sdate}" />" >~
+			<input type="date" name="ttr_sdate" value="<fmt:formatDate pattern="yyyy-MM-dd" value="${musicalVO.ttr_sdate}" />" >~
 		</div>
 		
 		<div>
 			<label>종료일</label>
-			<input type="date" value="<fmt:formatDate pattern="yyyy-MM-dd" value="${musicalVO.ttr_edate}" />" >	
+			<input type="date" name="ttr_edate" value="<fmt:formatDate pattern="yyyy-MM-dd" value="${musicalVO.ttr_edate}" />" >	
 		</div>
+		<!-- <div>
+			<label>사진첨부</label>
+			<div class="file" style="width:800px; height:200px; background-color:gray;"></div>			
+		</div> -->
 	</div>
 	</div>	
 	<!-- /.box-body -->
