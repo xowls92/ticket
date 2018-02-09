@@ -22,14 +22,16 @@ import org.springframework.web.multipart.MultipartFile;
 import com.spring.utils.MediaUtils;
 import com.spring.utils.UploadFileUtils;
 
+
 @Controller
 public class UploadController {
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
-	public void uploadForm() {}
-	
+	public void uploadForm() {
+	}
+
 	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	public ResponseEntity<String> uploadFile(MultipartFile file)
 			throws Exception {
@@ -37,14 +39,12 @@ public class UploadController {
 				file.getOriginalFilename(), file.getBytes()),
 				HttpStatus.CREATED);
 	}
-	
-	
+
 	@RequestMapping("/displayFile")
-	public ResponseEntity<byte[]> displayFile(String fileName)throws Exception{
+	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception{
 		
 		InputStream in=null;
 		ResponseEntity<byte[]> entity=null;
-		
 		try{
 			String formatName=fileName.substring(fileName.lastIndexOf(".")+1);
 			MediaType mType=MediaUtils.getMediaType(formatName);
@@ -52,29 +52,26 @@ public class UploadController {
 			
 			fileName=fileName.replace('/', File.separatorChar);
 			
+			/*in = new FileInputStream(uploadPath+fileName);*/
 			if(mType!=null){
 				headers.setContentType(mType);
 			}else{
 				fileName=fileName.substring(fileName.indexOf("_")+1);
 				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 				headers.add("Content-Disposition", "attachment;filename=\""+
-				new String(fileName.getBytes("8859_1"),"utf-8")+"\"");
+				new String(fileName.getBytes("utf-8"),"ISO-8859-1")+"\"");
 			}
 			String asd=new String(fileName.getBytes("8859_1"),"utf-8");
 			in = new FileInputStream(uploadPath+asd);
-			
-			entity=new ResponseEntity<byte[]>(IOUtils.toByteArray(in),
-					headers,HttpStatus.CREATED);
-			
-		}catch(IOException e){
-			e.printStackTrace();
-			entity=new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
-		}finally{
-			in.close();
+			entity=new ResponseEntity<byte[]>(IOUtils.toByteArray(in),headers,HttpStatus.CREATED);
+			}catch(IOException e){
+				e.printStackTrace();
+				entity=new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+			}finally{
+				in.close();
+			}
+			return entity;
 		}
-		
-		return entity;
-	}
 
 	@ResponseBody
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
@@ -121,9 +118,8 @@ public class UploadController {
 		}
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
+	
 }
-
-
 
 
 

@@ -14,21 +14,47 @@
 	<div>
 		<table>
 			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>작성일</th>
+				<th>예약이름</th>
+				<th>예약날짜</th>
+				<th>글제목</th>
+				<th>좌석번호</th>				
 			</tr>
 
-			<c:forEach items="${list}" var="ReservationVO">
+			<c:forEach items="${list}" var="reservationVO">
 				<tr>
-					<td>${ReservationVO.ttr_no }</td>
-					<td><a href="/com/readMcPage?ttr_no=${musicalVO.ttr_no}">${musicalVO.ttr_title }</a></td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${ReservationVO.res_date}" /></td>
+					<td>
+						<a href="readRes?res_id=${reservationVO.res_id}">${reservationVO.res_id }</a>
+					</td>
+					<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${reservationVO.res_date}" /></td>
+					<td>
+						<a href="<c:url value="/readMcPage" />?ttr_no=${reservationVO.ttr_no }">
+							${reservationVO.ttr_title }
+						</a>	
+				</td>
+					<td>${reservationVO.res_nom }</td>
 				</tr>
-
 			</c:forEach>		
 		</table>
 			<button>예약 취소</button>
 	</div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

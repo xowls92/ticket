@@ -5,21 +5,20 @@
 		insert into reserve(res_id,res_date,res_nom,seat_id,mem_id,ttr_no)
 		values(ttr_seq.nextval,#{res_id},#{res_date},#{res_nom},#{seat_id},#{mem_id})
 	</update>
-	<select id="selectResByTno" resultType="Res">
+	<select id="selectResById" resultType="Res">
 		select
 		ttr_no,res_id,res_date,res_nom,seat_id,mem_id
 		from reserve
-		where ttr_no=#{ttr_no}
+		where res_id=#{res_id}
 	</select>
 	<update id="deleteRes">
 		delete from reserve where ttr_no=#{ttr_no}
 	</update>
 	<select id="selectResList" resultType="Res">
 		<![CDATA[
-			select ttr_no,res_id,res_date,res_nom,seat_id,mem_id
-			from reserve
-			where ttr_no > 0
-			order by ttr_no desc
+			select *
+			from reserve_view			
+			order by res_date desc
 		]]>
 	</select>
 	

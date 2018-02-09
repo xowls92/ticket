@@ -14,7 +14,7 @@ public interface ReservationDAO {
 	void deleteRes(int ttr_no)throws SQLException;
 	
 	List<ReservationVO> selectResList()throws SQLException;
-	ReservationVO selectResByTno(int ttr_no)throws SQLException;
+	ReservationVO selectResById(String res_id)throws SQLException;
 	List<ReservationVO> selectResListCriteria(Criteria cri)throws SQLException;
 	
 	List<ReservationVO> selectSearchList(SearchCriteria cri)throws SQLException;

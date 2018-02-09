@@ -151,6 +151,19 @@ $('#write').submit(function(event){
 	var that=$(this);
 	var str="";
 	$('.file_submit').each(function(index){
+		str+="<input type='hidden' name='files'"
+		+"value='"+$(this).attr('data-src')+"'>";
+	});
+	
+	that.append(str);
+	that.get(0).submit();
+});
+$('#res-write').submit(function(event){
+	event.preventDefault();
+	
+	var that=$(this);
+	var str="";
+	$('.file_submit').each(function(index){
 		str+="<input type='hidden' name='file'"
 		+"value='"+$(this).attr('data-src')+"'>";
 	});
@@ -170,7 +183,7 @@ function getOri(fullName){
 		
 		var front=file_name.substr(0,12); 
 		var end=file_name.substr(14);  
-		getLink="/displayFile?fileName="+front+end;
+		getLink="/com/displayFile?fileName="+front+end;
 	
 	return getLink;
 }
@@ -178,7 +191,7 @@ function getOri(fullName){
 function getThumb(fullName){
 	
 	var imgsrc
-		imgsrc="/displayFile?fileName="+fullName;
+		imgsrc="/com/displayFile?file_Name="+fullName;
 	
 	return imgsrc;
 	
@@ -187,15 +200,20 @@ $('#addseat').on('click',function(event){
 	if($('.seat_info').length<11){
 		
 	
-	var str="<div class='seat_info'><input type='text' name='seat_grd'><input type='text' name='seat_no'><input type='text' name='seat_pri'><input type='time' name='seat_time'><input type='button' class='delseat' value='-'></div>";
-	$(this).parent('div').append(str);
+	var str="<tr class='seat_info'>" +
+			"<td><input type='text' name='seat_id' value='asd'></td>" +
+			"<td><input type='text' name='seat_grd'></td>" +
+			"<td><input type='number' name='seat_no'></td>" +
+			"<td><input type='number' name='seat_pri'></td>" +
+			"<td><input type='date' name='seat_date'></td>" +
+			"<td><input type='time' name='seat_time'></td>" +
+			"<td><input type='button' class='delseat' value='-'></tr>";
+	$('#seat_table').append(str);
 	}
 })
-$('#addseat').parent().on('click','.seat_info>.delseat',function(){
-	$(this).parent('div').remove();
+$('#seat_table').on('click','.delseat',function(){
+	$(this).parent('td').parent('tr').remove();
 })
-
-
 
 
 

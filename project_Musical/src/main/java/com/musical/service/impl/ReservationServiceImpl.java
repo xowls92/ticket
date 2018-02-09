@@ -39,8 +39,8 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public ReservationVO readResByTno(int ttr_no) throws SQLException {
-		ReservationVO res=resDAO.selectResByTno(ttr_no);
+	public ReservationVO readResById(String res_id) throws SQLException {
+		ReservationVO res=resDAO.selectResById(res_id);
 		return res;
 	}
 

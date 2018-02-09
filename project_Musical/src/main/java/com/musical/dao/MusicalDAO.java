@@ -17,6 +17,7 @@ public interface MusicalDAO {
 
 	//검색조건의 동적 쿼리문
 	List<MusicalVO> selectSearchList(SearchCriteria cri)throws SQLException;
+	
 	int selectSearchListCount() throws SQLException;
 	
 	//첨부파일 추가/삭제
@@ -29,7 +30,7 @@ public interface MusicalDAO {
 	void deleteThumb(int ttr_no) throws SQLException;
 	String selectThumb(int ttr_no) throws SQLException;
 	
-	//구조도추가
+	//좌석배치추가
 	void insertseatmap(String seatmap_name,int ttr_no) throws SQLException;
 	void deleteseatmap(int ttr_no) throws SQLException;
 	String selectseatmap(int ttr_no) throws SQLException;

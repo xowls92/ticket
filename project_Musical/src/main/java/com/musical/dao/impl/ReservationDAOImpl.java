@@ -46,8 +46,8 @@ public class ReservationDAOImpl implements ReservationDAO{
 	}
 
 	@Override
-	public ReservationVO selectResByTno(int ttr_no) throws SQLException {
-		ReservationVO res = (ReservationVO) sqlSession.selectOne(NAMESPACE+".selectResByTno",ttr_no);
+	public ReservationVO selectResById(String res_id) throws SQLException {
+		ReservationVO res = (ReservationVO) sqlSession.selectOne(NAMESPACE+".selectResById",res_id);
 		return res;
 	}
 

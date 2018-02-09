@@ -10,10 +10,11 @@ public class ReservationVO {
 	private String seat_id;//좌석 아이디
 	private String mem_id;//회원 아이디
 	private int ttr_no;//글번호
+	private String ttr_title;//글 제목
 	
 	public ReservationVO(){}
 	public ReservationVO(String res_id, Date res_date, int res_nom,
-			String seat_id, String mem_id, int ttr_no) {
+			String seat_id, String mem_id, int ttr_no, String ttr_title) {
 		super();
 		this.res_id = res_id;
 		this.res_date = res_date;
@@ -21,12 +22,7 @@ public class ReservationVO {
 		this.seat_id = seat_id;
 		this.mem_id = mem_id;
 		this.ttr_no = ttr_no;
-	}
-	@Override
-	public String toString() {
-		return "ReservationVO [res_id=" + res_id + ", res_date=" + res_date
-				+ ", res_nom=" + res_nom + ", seat_id=" + seat_id + ", mem_id="
-				+ mem_id + ", ttr_no=" + ttr_no + "]";
+		this.ttr_title = ttr_title;
 	}
 	public String getRes_id() {
 		return res_id;
@@ -64,6 +60,20 @@ public class ReservationVO {
 	public void setTtr_no(int ttr_no) {
 		this.ttr_no = ttr_no;
 	}
+	public String getTtr_title() {
+		return ttr_title;
+	}
+	public void setTtr_title(String ttr_title) {
+		this.ttr_title = ttr_title;
+	}
+	@Override
+	public String toString() {
+		return "ReservationVO [res_id=" + res_id + ", res_date=" + res_date
+				+ ", res_nom=" + res_nom + ", seat_id=" + seat_id + ", mem_id="
+				+ mem_id + ", ttr_no=" + ttr_no + ", ttr_title=" + ttr_title
+				+ "]";
+	}
 	
 	
+		
 }

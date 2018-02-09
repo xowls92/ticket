@@ -1,10 +1,15 @@
 package com.musical.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.musical.domain.MusicalVO;
 import com.musical.domain.MusicalVO2;
 import com.musical.service.MusicalService;
+import com.musical.service.ReservationService;
 
 @Controller
 public class MusicalController {
@@ -22,22 +28,27 @@ public class MusicalController {
 	@Autowired
 	private MusicalService musicalService;
 	
+	@Autowired
+	private ReservationService rs;
+	
+	@InitBinder public void initBinder(WebDataBinder binder) 
+	{ 
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");binder.registerCustomEditor(Date.class,"seat_date", new CustomDateEditor(dateFormat, true));
+		SimpleDateFormat time = new SimpleDateFormat("hh:mm"); binder.registerCustomEditor(Date.class,"seat_time", new CustomDateEditor(time, true));
+	}
+	
 	@RequestMapping(value="/mclistA",method=RequestMethod.GET)
 	public String mclist(Model model)throws Exception{
 		String url="/mc/mclistA";
+		
 		List<MusicalVO> mcList=musicalService.readMcList();
 		model.addAttribute("list",mcList);
 		
 		return url;
 	}
 	
-	@RequestMapping("/readMcPage")
-	public void readMc(int ttr_no,Model model)throws Exception{
-		MusicalVO mc=musicalService.readMusicalBymcno(ttr_no);
-		model.addAttribute(mc);
-	}
-	
-	@RequestMapping(value="/removeMusical",method=RequestMethod.POST)
+		
+	@RequestMapping(value="/removeMusical",method=RequestMethod.GET)
 	public String removeMusical(int ttr_no)throws Exception{
 		String url="redirect:/mclistA";
 		musicalService.deleteMc(ttr_no);
@@ -51,7 +62,6 @@ public class MusicalController {
 	
 	@RequestMapping(value="/createMusical",method=RequestMethod.POST)
 	public String createMusical(MusicalVO2 mc2)throws Exception{
-	
 		MusicalVO mc=mc2.toMusicalVO();
 		musicalService.createMc(mc);
 		return "redirect:/mclistA";
@@ -61,6 +71,7 @@ public class MusicalController {
 	}
 	@RequestMapping(value="/readMcPage",method=RequestMethod.GET)
 	public String readPage(@RequestParam("ttr_no") int ttr_no,Model model)throws Exception{
+		
 		String url="/mc/readMcPage";
 		
 		MusicalVO mc=musicalService.readMusicalBymcno(ttr_no);
@@ -88,7 +99,9 @@ public class MusicalController {
 	@ResponseBody
 	public List<String> getFiles(@PathVariable("ttr_no") int ttr_no) throws Exception{
 		return musicalService.getAttach(ttr_no);
+	
 	}
+	
 	/*@RequestMapping(value="/createPage",method=RequestMethod.GET)
 	public String createPage()throws Exception{
 		String url="mc/createMcForm";

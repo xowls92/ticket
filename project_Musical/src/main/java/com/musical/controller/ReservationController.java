@@ -22,7 +22,7 @@ public class ReservationController {
 
 	@Autowired
 	private ReservationService rs;
-	
+		
 	@RequestMapping(value="/resList",method=RequestMethod.GET)
 	public String reslist(Model model)throws Exception{
 		String url="/res/resList";
@@ -32,9 +32,9 @@ public class ReservationController {
 	}
 	
 	@RequestMapping("/readRes")
-	public void readRes(int ttr_no,Model model)throws Exception{
-		ReservationVO res=rs.readResByTno(ttr_no);
-		model.addAttribute(res);
+	public void readRes(String res_id,Model model)throws Exception{
+		ReservationVO res=rs.readResById(res_id);
+		model.addAttribute(res);		
 	}
 	@RequestMapping(value="/removeRes",method=RequestMethod.POST)
 	public String removeRes(int ttr_no)throws Exception{
@@ -44,7 +44,7 @@ public class ReservationController {
 	}
 	@RequestMapping(value="createRes",method=RequestMethod.GET)
 	public String createRes()throws Exception{
-		String url="res/createResForm";
+		String url="res/createRes";
 		return url;
 	}
 	@RequestMapping(value="/createRes",method=RequestMethod.POST)
@@ -77,11 +77,11 @@ public class ReservationController {
 	}
 	@RequestMapping(value="/readRes",method=RequestMethod.GET)
 	public String readRes(@ModelAttribute("cri")Criteria cri,
-						   @RequestParam("ttr_no")int ttr_no,Model model)
+						   @RequestParam("res_id")String res_id,Model model)
 						   		throws Exception{
 		String url="/res/readRes";
 		
-		ReservationVO res=rs.readResByTno(ttr_no);
+		ReservationVO res=rs.readResById(res_id);
 		model.addAttribute(res);
 		
 		return url;
