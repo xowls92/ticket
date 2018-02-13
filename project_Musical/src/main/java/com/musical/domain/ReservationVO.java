@@ -3,27 +3,13 @@ package com.musical.domain;
 import java.util.Date;
 
 public class ReservationVO {
-
-	private String res_id;//예약아이디
-	private Date res_date;//예약날짜
-	private int res_nom;//좌석 번호
-	private String seat_id;//좌석 아이디
-	private String mem_id;//회원 아이디
-	private int ttr_no;//글번호
-	private String ttr_title;//글 제목
-	
-	public ReservationVO(){}
-	public ReservationVO(String res_id, Date res_date, int res_nom,
-			String seat_id, String mem_id, int ttr_no, String ttr_title) {
-		super();
-		this.res_id = res_id;
-		this.res_date = res_date;
-		this.res_nom = res_nom;
-		this.seat_id = seat_id;
-		this.mem_id = mem_id;
-		this.ttr_no = ttr_no;
-		this.ttr_title = ttr_title;
-	}
+	private String res_id;
+	private Date res_date;
+	private int res_nom;
+	private String seat_id;
+	private String mem_id;
+	private int ttr_no;
+	private String imp_uid;
 	public String getRes_id() {
 		return res_id;
 	}
@@ -60,20 +46,29 @@ public class ReservationVO {
 	public void setTtr_no(int ttr_no) {
 		this.ttr_no = ttr_no;
 	}
-	public String getTtr_title() {
-		return ttr_title;
+	public String getImp_uid() {
+		return imp_uid;
 	}
-	public void setTtr_title(String ttr_title) {
-		this.ttr_title = ttr_title;
+	public void setImp_uid(String imp_uid) {
+		this.imp_uid = imp_uid;
+	}
+	public ReservationVO(){};
+	public ReservationVO(String res_id, Date res_date, int res_nom, String seat_id,
+			String mem_id, int ttr_no, String imp_uid) {
+		super();
+		this.res_id = res_id;
+		this.res_date = res_date;
+		this.res_nom = res_nom;
+		this.seat_id = seat_id;
+		this.mem_id = mem_id;
+		this.ttr_no = ttr_no;
+		this.imp_uid = imp_uid;
 	}
 	@Override
 	public String toString() {
-		return "ReservationVO [res_id=" + res_id + ", res_date=" + res_date
+		return "ResVO [res_id=" + res_id + ", res_date=" + res_date
 				+ ", res_nom=" + res_nom + ", seat_id=" + seat_id + ", mem_id="
-				+ mem_id + ", ttr_no=" + ttr_no + ", ttr_title=" + ttr_title
-				+ "]";
+				+ mem_id + ", ttr_no=" + ttr_no + ", imp_uid=" + imp_uid + "]";
 	}
 	
-	
-		
 }

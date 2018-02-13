@@ -43,4 +43,6 @@ public interface MusicalDAO {
 	List<Seatinfo> selectseatbyttr_no(int ttr_no) throws SQLException;
 	Seatinfo selectseatbyseat_id(String seat_id) throws SQLException;
 	List<Seatinfo> selectseat() throws SQLException;
+	
+	Double scoreavg(int ttr_no) throws SQLException;
 }

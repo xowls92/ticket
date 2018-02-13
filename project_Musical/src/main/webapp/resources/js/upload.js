@@ -171,18 +171,18 @@ $('#res-write').submit(function(event){
 	that.append(str);
 	that.get(0).submit();
 });
-function checkImageType(file_Name){
+function checkImageType(fileName){
 	var pattern=/jpg|gif|png|jpeg/i;
 	
-	return file_Name.match(pattern);
+	return fileName.match(pattern);
 }
 
 function getOri(fullName){
 	
 	var getLink;
 		
-		var front=file_name.substr(0,12); 
-		var end=file_name.substr(14);  
+		var front=fullName.substr(0,12); 
+		var end=fullName.substr(14);  
 		getLink="/com/displayFile?fileName="+front+end;
 	
 	return getLink;
@@ -191,7 +191,7 @@ function getOri(fullName){
 function getThumb(fullName){
 	
 	var imgsrc
-		imgsrc="/com/displayFile?file_Name="+fullName;
+		imgsrc="/com/displayFile?fileName="+fullName;
 	
 	return imgsrc;
 	

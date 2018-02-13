@@ -8,6 +8,7 @@
 		<typeAlias alias="mc" type="com.musical.domain.MusicalVO" />
 		<typeAlias alias="Res" type="com.musical.domain.ReservationVO" />
 		<typeAlias alias="seatinfo" type="com.musical.domain.Seatinfo"/>
+		<typeAlias alias="reply" type="com.musical.domain.ReplyVO" />
 	</typeAliases>
 	
 </configuration>

@@ -38,7 +38,6 @@ public class MusicalServiceImpl implements MusicalService{
 		Date[] seat_dates = mc.getSeat_date();
 		Date[] seat_times = mc.getSeat_time();
 		
-		
 		if(seat_grds!=null){
 			System.out.println(seat_grds[0]);
 		for (int i = 0; i < seat_grds.length; i++) {
@@ -122,8 +121,7 @@ public class MusicalServiceImpl implements MusicalService{
 			String thumb = musicalDAO.selectThumb(bef.getTtr_no());
 			bef.setThumb_name(thumb);
 			mcList.set(i, bef);
-		}
-		;
+		};
 		return mcList;
 	}
 	@Override
@@ -192,6 +190,12 @@ public class MusicalServiceImpl implements MusicalService{
 	public List<Seatinfo> readseat() throws SQLException {
 		List<Seatinfo> seat = musicalDAO.selectseat();
 		return seat;
+	}
+
+	@Override
+	public Double scoreavg(int ttr_no) throws SQLException {
+		double avg=musicalDAO.scoreavg(ttr_no);
+		return avg;
 	}
 	
 	

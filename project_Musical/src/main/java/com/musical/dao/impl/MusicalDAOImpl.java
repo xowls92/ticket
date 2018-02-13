@@ -179,6 +179,12 @@ public class MusicalDAOImpl implements MusicalDAO{
 		return seat;
 	}
 
+	@Override
+	public Double scoreavg(int ttr_no) throws SQLException {
+		double avg=(double) sqlSession.selectOne(NAMESPACE+".scoreavg",ttr_no);
+		return avg;
+	}
+
 	
 
 }

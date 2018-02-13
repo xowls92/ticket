@@ -24,4 +24,6 @@ public interface MusicalService {
 	Seatinfo readseatbyseat_id(String seat_id) throws SQLException;
 	List<Seatinfo> readseatbyttr_no(int ttr_no) throws SQLException;
 	List<Seatinfo> readseat() throws SQLException;
+	
+	Double scoreavg(int ttr_no) throws SQLException;
 }

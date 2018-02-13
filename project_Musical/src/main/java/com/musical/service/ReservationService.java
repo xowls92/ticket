@@ -9,13 +9,18 @@ import com.musical.domain.SearchCriteria;
 
 public interface ReservationService {
 
-	void createRes(ReservationVO res)throws SQLException;
-	void updateRes(ReservationVO res)throws SQLException;
-	void deleteRes(int ttr_no)throws SQLException;
-	List<ReservationVO> readResList()throws SQLException;
-	ReservationVO readResById(String res_id)throws SQLException;
-	List<ReservationVO> readResListCriteria(Criteria cri)throws SQLException;
-	List<ReservationVO> readSearchResList(SearchCriteria cri)throws SQLException;
-	int readSearchResListCount(SearchCriteria cri)throws SQLException;
+	int countresbyseat_id(String seat_id) throws SQLException;
+
+	ReservationVO selectresbyres_id(String res_id) throws SQLException;
+	ReservationVO selectresbyres_nom(int res_nom,String seat_id) throws SQLException;
+	List<ReservationVO> selectresbyseat_id(String seat_id) throws SQLException;
+	List<ReservationVO> selectresbymem_id(String mem_id) throws SQLException;
+	List<ReservationVO> selectresbyttr_no(int ttr_no) throws SQLException;
 	
+	void insertres(ReservationVO res) throws SQLException;
+	void deleteResid(String res_id) throws SQLException;
+	void deleteResnom(String res_nom) throws SQLException;
+	void deletettrno(int ttr_no) throws SQLException;
+	
+	List<ReservationVO> readResList() throws SQLException;
 }

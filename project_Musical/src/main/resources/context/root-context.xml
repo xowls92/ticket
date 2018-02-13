@@ -38,6 +38,8 @@
 	      class="org.springframework.transaction.support.TransactionTemplate"
 	      p:transactionManager-ref="transactionManager"
 	      />
+	
+	
 	<bean 	id="MusicalDAO"
 			class="com.musical.dao.impl.MusicalDAOImpl"
 			p:sqlSession-ref="sqlSession"
@@ -53,5 +55,13 @@
 	<bean	id="ReservationService"
 			class="com.musical.service.impl.ReservationServiceImpl"
 			p:reservationDAO-ref="ReservationDAO"/>
+	
+	<bean id="replyDAO"
+		  class="com.musical.dao.impl.ReplyDAOImpl"
+		  p:namespace="ReplyMapper"
+		  p:sqlSession-ref="sqlSession"/>  
+	<bean id="replyService"
+	      class="com.musical.service.impl.ReplyServiceImpl"
+	      p:replyDAO-ref="replyDAO" />
 	
 </beans>

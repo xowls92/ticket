@@ -1,15 +1,14 @@
 package com.musical.dao.impl;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.musical.dao.ReservationDAO;
-import com.musical.domain.Criteria;
 import com.musical.domain.ReservationVO;
-import com.musical.domain.SearchCriteria;
 
 public class ReservationDAOImpl implements ReservationDAO{
 
@@ -20,62 +19,81 @@ public class ReservationDAOImpl implements ReservationDAO{
 	}
 	
 	private static final String NAMESPACE="ResMapper";
-	
+
 	@Override
 	public void insertRes(ReservationVO res) throws SQLException {
-
-		sqlSession.update(NAMESPACE+".insertRes",res);
+		sqlSession.insert(NAMESPACE+".insertres",res);		
 	}
 
 	@Override
-	public void updateRes(ReservationVO res) throws SQLException {
+	public void deletettrno(int ttr_no) throws SQLException {
+		sqlSession.update(NAMESPACE+".deleteresbyttr_no",ttr_no);
 
-		sqlSession.update(NAMESPACE+".updateRes",res);
 	}
 
 	@Override
-	public void deleteRes(int ttr_no) throws SQLException {
+	public void deleteResid(String res_id) throws SQLException {
+		sqlSession.update(NAMESPACE+".deleteresbyres_id",res_id);		
+	}
 
-		sqlSession.update(NAMESPACE+".deleteRes",ttr_no);
+	@Override
+	public void deleteResnom(String res_nom) throws SQLException {
+		sqlSession.update(NAMESPACE+".deleteresbyres_nom",res_nom);
+		
+	}
+
+	@Override
+	public ReservationVO selectresbyres_id(String res_id) throws SQLException {
+		ReservationVO res=(ReservationVO) sqlSession.selectOne(NAMESPACE+".selectresbyres_id",res_id);
+		return res;
+	}
+
+	@Override
+	public ReservationVO selectresbyres_nom(int res_nom, String seat_id)
+			throws SQLException {
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		
+		paramMap.put("res_nom",res_nom);
+		paramMap.put("seat_id",seat_id);
+		
+		ReservationVO res=(ReservationVO) sqlSession.selectOne(NAMESPACE+".selectresbyres_nom",paramMap);
+		return res;
+	}
+
+	@Override
+	public List<ReservationVO> selectresbyseat_id(String seat_id)
+			throws SQLException {
+		List<ReservationVO> res=sqlSession.selectList(NAMESPACE+".selectresbyseat_id",seat_id);
+		return res;
+	}
+
+	@Override
+	public List<ReservationVO> selectresbymem_id(String mem_id)
+			throws SQLException {
+		List<ReservationVO> res=sqlSession.selectList(NAMESPACE+".selectresbymem_id",mem_id);
+		return res;
+	}
+
+	@Override
+	public List<ReservationVO> selectresbyttr_no(int ttr_no)
+			throws SQLException {
+		List<ReservationVO> res=sqlSession.selectList(NAMESPACE+".selectresbyttr_no",ttr_no);
+		return res;
 	}
 
 	@Override
 	public List<ReservationVO> selectResList() throws SQLException {
+		
 		List<ReservationVO> resList=sqlSession.selectList(NAMESPACE+".selectResList",null);
 		return resList;
 	}
 
 	@Override
-	public ReservationVO selectResById(String res_id) throws SQLException {
-		ReservationVO res = (ReservationVO) sqlSession.selectOne(NAMESPACE+".selectResById",res_id);
-		return res;
+	public String selectThumb(int ttr_no) throws SQLException {
+		String thumb=(String) sqlSession.selectOne(NAMESPACE+".selectThumb",ttr_no);
+		return thumb;
 	}
-
-	@Override
-	public List<ReservationVO> selectResListCriteria(Criteria cri) throws SQLException {
-		int offset = cri.getPageStart();
-		int limit = cri.getPerPageNum();
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		
-		List<ReservationVO> resList=sqlSession.selectList(NAMESPACE+".selectResList",null,rowBounds);
-		return resList;
-	}
-
-	@Override
-	public List<ReservationVO> selectSearchList(SearchCriteria cri)
-			throws SQLException {
-		int offset = cri.getPageStart();
-		int limit = cri.getPerPageNum();
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		
-		List<ReservationVO> resList = sqlSession.selectList(NAMESPACE+".selectSearchResList",cri,rowBounds);
-		return resList;
-	}
-
-	@Override
-	public int selectSearchListCount(SearchCriteria cri) throws SQLException {
-		int listCount=(int) sqlSession.selectOne(NAMESPACE+".selectSearchResCount",cri);
-		return listCount;
-	}
+	
+	
 
 }
