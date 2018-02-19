@@ -10,6 +10,7 @@ public class ReplyVO {
 	private String mem_id; //회원 아이디
 	private int ttr_no; // 글번호
 	private int ttr_score; //평점
+	
 	public int getTr_rno() {
 		return tr_rno;
 	}

@@ -40,12 +40,18 @@
 	<update id="deleteresbyttr_no">
 		delete from reserve where ttr_no=#{ttr_no}
 	</update>
-	<select id="selectResList" resultType="Res">
+	<!-- <select id="selectResList" resultType="Res">
 		<![CDATA[
 			select *
 			from reserve		
 			order by res_date desc
 		]]>
+	</select> -->
+	<select id="selectResList" resultType="Res">
+		select res_id,res_nom,seat_id,mem_id,ttr_no,imp_uid
+		from reserve
+		order by ttr_no desc
+		<!-- order by ttr_no desc -->
 	</select>
 	<select id="selectResByno" resultType="Res">
 		select

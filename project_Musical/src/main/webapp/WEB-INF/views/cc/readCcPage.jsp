@@ -8,7 +8,7 @@
 <script src="/com/resources/js/upload.js" ></script>
 <div>
 	<div>
-		<h3>뮤지컬</h3>
+		<h3>콘서트</h3>
 	</div>
 
 <form method="post">

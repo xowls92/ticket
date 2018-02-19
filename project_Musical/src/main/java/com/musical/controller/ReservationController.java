@@ -1,16 +1,28 @@
 package com.musical.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONArray;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.musical.domain.Criteria;
@@ -32,12 +44,37 @@ public class ReservationController {
 	@Autowired
 	private MusicalService ms;
 	
+	@InitBinder public void initBinder(WebDataBinder binder) 
+	{ 
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");binder.registerCustomEditor(Date.class,"seat_date", new CustomDateEditor(dateFormat, true));
+		SimpleDateFormat time = new SimpleDateFormat("hh:mm"); binder.registerCustomEditor(Date.class,"seat_time", new CustomDateEditor(time, true));
+	}
+	
 	@RequestMapping(value="/resList",method=RequestMethod.GET)
 	public String reslist(Model model)throws Exception{
 		String url="/res/resList";
+		
 		List<ReservationVO> resList=rs.readResList();
 		model.addAttribute("list",resList);
 		return url;
+	}
+	
+	@RequestMapping(value="/resList",method=RequestMethod.POST)
+	public String reslist(MusicalVO mv,ReservationVO rv,Model model)throws Exception{
+		String url="/res/resList";
+		
+		List<MusicalVO> mcList=new ArrayList<MusicalVO>();
+		List<ReservationVO> resList=new ArrayList<ReservationVO>();
+		List<Seatinfo> seatlist=new ArrayList<Seatinfo>();
+		
+		
+		
+		System.out.println(mv);
+		System.out.println(rv);
+		
+		model.addAttribute("list",mcList);
+		return url;
+		
 	}
 	
 	/*@RequestMapping("/readRes")
@@ -47,13 +84,13 @@ public class ReservationController {
 	}*/
 	@RequestMapping(value="/removeRes",method=RequestMethod.POST)
 	public String removeRes(int ttr_no)throws Exception{
-		String url="redirect:/res/reslist";
+		String url="redirect:/res/resList";
 		rs.deletettrno(ttr_no);
 		return url;
 	}
 	@RequestMapping(value="/createRes",method=RequestMethod.GET)
 	public String createRes(@RequestParam("ttr_no") int ttr_no,Model model)throws Exception{
-		String url="com/res/createRes";
+		String url="res/createRes";
 		
 		MusicalVO mv=ms.readMusicalBymcno(ttr_no);
 		String[] seat_ids=mv.getSeat_id();
@@ -61,6 +98,7 @@ public class ReservationController {
 		for(int i=0;i<seat_ids.length;i++){
 			seat_cnt[i]=rs.countresbyseat_id(seat_ids[i]);
 		}
+		System.out.println(mv);
 		model.addAttribute(mv);
 		model.addAttribute("seat_cnt",seat_cnt);
 		return url;
@@ -68,14 +106,17 @@ public class ReservationController {
 	@RequestMapping(value="/createRes",method=RequestMethod.POST)
 	public String createRes(@RequestParam("rescheck")String[] rescheck,HttpSession session,
 			MusicalVO mv,Model model)throws Exception{
-		String url="redirect:/res/reslist";
+		String url="res/respay";
 		String[] seat_id=new String[rescheck.length];
 		int[] res_nom=new int[rescheck.length];
+		MemberVO mem2= new MemberVO("tj","tj","tj","men",null,"tj@naver.com","010-0000-0000","대전",null);
+		session.setAttribute("loginUser",mem2);
 		MemberVO mem=(MemberVO) session.getAttribute("loginUser");
 		List<ReservationVO> reslist=new ArrayList<ReservationVO>();
 		List<Seatinfo> seatlist=new ArrayList<Seatinfo>();
 		int pri=0;
 		for(int i=0;i<rescheck.length;i++){
+			
 			seat_id[i]=rescheck[i].split("_")[0];
 			res_nom[i]=Integer.parseInt(rescheck[i].split("_")[1]);
 		}
@@ -92,10 +133,33 @@ public class ReservationController {
 		PayVO pay=new PayVO(mv.getTtr_title(),pri,mem.getMem_mail(),mem.getMem_name(),mem.getMem_mobile(),mem.getMem_addr(),null);
 		model.addAttribute("reslist",reslist);
 		model.addAttribute("seatlist",seatlist);
+		model.addAttribute("pri",pri);
 		model.addAttribute("pay",pay);
 		return url;
 	}
-	
+	@RequestMapping(value="/respay",method=RequestMethod.POST)
+	@ResponseBody
+	public String respay(@RequestParam("reslist")String param,@RequestParam("imp_uid")String imp_uid) throws Exception{
+		ResponseEntity<String> entity=null;
+		entity=new ResponseEntity<String>("everythings_fine", HttpStatus.OK);
+		List<Map<String, Object>> maplist=new ArrayList<Map<String,Object>>();
+		maplist=JSONArray.fromObject(param);
+		for(Map<String, Object> map:maplist){
+			ReservationVO res=new ReservationVO(null,null,(int)map.get("res_nom"),(String)map.get("seat_id"),(String)map.get("mem_id"),(int)map.get("ttr_no"),(String)map.get("imp_uid"));
+			rs.insertres(res);
+		}
+		return "everythings_fine";
+	}
+	@RequestMapping(value="/createRes/{seat_id}")
+	@ResponseBody
+	public int[] reservedseat(@PathVariable("seat_id") String seat_id) throws Exception{
+		List<ReservationVO> reslist = rs.selectresbyseat_id(seat_id);
+		int[] res_end=new int[reslist.size()];
+		for(int i=0;i<reslist.size();i++){
+			res_end[i]=reslist.get(i).getRes_nom();
+		}
+		return res_end;
+	}
 	/*@RequestMapping(value="/listCri",method=RequestMethod.GET)
 	public String listCri(Criteria cri,Model model) throws Exception{
 		String url="res/reslist";

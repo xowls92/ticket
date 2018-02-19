@@ -131,18 +131,7 @@ public class ReplyController {
 				
 		return entity;
 	}
-	@RequestMapping(value="/scoreavg/{ttr_no}")
-	public ResponseEntity<Double> scoreavg(@PathVariable("ttr_no")int ttr_no){
-		ResponseEntity<Double> entity = null;
-		try {
-			double avg=ms.scoreavg(ttr_no);
-			double b = Math.round(avg*100d)/100d;
-			entity = new ResponseEntity<Double>(b, HttpStatus.OK);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return entity;
-	}
+	
 }
 	
 

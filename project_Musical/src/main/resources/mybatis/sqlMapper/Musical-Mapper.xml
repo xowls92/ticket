@@ -9,8 +9,7 @@
 	</update>
 	<select id="selectMusicalBymcno" resultType="mc">
 		select
-		ttr_no,com_id,ttr_cat,ttr_title,ttr_date,
-		ttr_sdate,ttr_edate,ttr_place,ttr_time,ttr_alert,ttr_content
+		*
 		from
 		theater
 		where ttr_no = #{ttr_no}
@@ -140,7 +139,27 @@
 	<update id="deleteSeatByTtr_no">
 		delete seat where ttr_no=#{ttr_no}
 	</update>
+	<update id="insertzzim">
+		insert into zzim(zzim_no,mem_id,ttr_no,zzim_date)
+		values(zzim_seq.nextval,#{mem_id},#{ttr_no},sysdate)
+	</update>
+	<select id="selectSearchMusicalList" resultType="mc">
+		select *
+		from theater
+		where ttr_cat=#{ttr_cat}
+		<include refid="search"></include>
+		order by ttr_no desc
+	</select>
+	<update id="deletezzim">
+		delete from zzim where mem_id=#{mem_id} and ttr_no=#{ttr_no}
+	</update>
 	
+	<select id="selectzzim" resultType="zzim">
+		select * from zzim where mem_id=#{mem_id} and ttr_no=#{ttr_no}
+	</select>
+	<select id="scoreavg" resultType="dub">
+		SELECT AVG(ttr_score) FROM theater_reply where ttr_no=#{ttr_no}
+	</select>
 </mapper>
 
 

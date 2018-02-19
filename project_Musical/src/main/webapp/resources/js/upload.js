@@ -94,7 +94,7 @@ $(".file").on(
 
 					var str = "";
 					if (checkImageType(data)) {
-						str = "<div style='display:inline;'><img src='/com/displayFile?fileName=" + getImageLink(data)
+						str = "<div style='display:inline;'><img src='/com/displayFile?fileName=" + data
 								+ "'/><small class='file_submit' data-src='" + data
 								+ "'><button>x</button></small></div>"
 					}

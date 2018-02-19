@@ -12,6 +12,7 @@ import com.musical.dao.MusicalDAO;
 import com.musical.domain.MusicalVO;
 import com.musical.domain.SearchCriteria;
 import com.musical.domain.Seatinfo;
+import com.musical.domain.ZzimVO;
 import com.musical.service.MusicalService;
 
 public class MusicalServiceImpl implements MusicalService{
@@ -41,7 +42,7 @@ public class MusicalServiceImpl implements MusicalService{
 		if(seat_grds!=null){
 			System.out.println(seat_grds[0]);
 		for (int i = 0; i < seat_grds.length; i++) {
-			seats[i]=new Seatinfo(ttr_no,seat_grds[i],seat_nos[i],seat_pris[i],seat_dates[i],seat_times[i]);
+			seats[i]=new Seatinfo("",ttr_no,seat_grds[i],seat_nos[i],seat_pris[i],seat_dates[i],seat_times[i]);
 			}
 		}
 		String thumb = mc.getThumb_name();
@@ -85,7 +86,7 @@ public class MusicalServiceImpl implements MusicalService{
 		
 		if(seat_grds!=null){
 		for (int i = 0; i < seat_grds.length; i++) {
-			seats[i]=new Seatinfo(ttr_no,seat_grds[i],seat_nos[i],seat_pris[i],seat_dates[i],seat_times[i]);
+			seats[i]=new Seatinfo("",ttr_no,seat_grds[i],seat_nos[i],seat_pris[i],seat_dates[i],seat_times[i]);
 		}
 		}
 		
@@ -128,27 +129,29 @@ public class MusicalServiceImpl implements MusicalService{
 	public MusicalVO readMusicalBymcno(int ttr_no) throws SQLException {
 		MusicalVO mc=musicalDAO.selectMusicalBymcno(ttr_no);
 		
-		List<Seatinfo> seat=musicalDAO.selectseatbyttr_no(ttr_no);
+		List<Seatinfo> seats=musicalDAO.selectseatbyttr_no(ttr_no);
 		
-		String[] seat_ids=new String[seat.size()];
-		String[] seat_grds = new String[seat.size()];
-		int[] seat_nos = new int[seat.size()];
-		int[] seat_pris = new int[seat.size()];
-		Date[] seat_dates = new Date[seat.size()];
-		Date[] seat_times = new Date[seat.size()];
+		String[] seat_ids=new String[seats.size()];
+		String[] seat_grds = new String[seats.size()];
+		int[] seat_nos = new int[seats.size()];
+		int[] seat_pris = new int[seats.size()];
+		Date[] seat_dates = new Date[seats.size()];
+		Date[] seat_times = new Date[seats.size()];
 		
 		if(seat_grds!=null){
-		for(int i=0;i<seat.size();i++){
-			seat_grds[i]=seat.get(i).getSeat_grd();
-			seat_nos[i]=seat.get(i).getSeat_no();
-			seat_pris[i]=seat.get(i).getSeat_pri();
-			seat_dates[i]=seat.get(i).getSeat_date();
-			seat_times[i]=seat.get(i).getSeat_time();
+		for(int i=0;i<seats.size();i++){
+			seat_ids[i]=seats.get(i).getSeat_id();
+			seat_grds[i]=seats.get(i).getSeat_grd();
+			seat_nos[i]=seats.get(i).getSeat_no();
+			seat_pris[i]=seats.get(i).getSeat_pri();
+			seat_dates[i]=seats.get(i).getSeat_date();
+			seat_times[i]=seats.get(i).getSeat_time();
 		}
 		}
 		
 		mc.setThumb_name(musicalDAO.selectThumb(ttr_no));
 		mc.setSeatmap_name(musicalDAO.selectseatmap(ttr_no));
+		mc.setSeat_id(seat_ids);
 		mc.setSeat_grd(seat_grds);
 		mc.setSeat_no(seat_nos);
 		mc.setSeat_pri(seat_pris);
@@ -196,6 +199,36 @@ public class MusicalServiceImpl implements MusicalService{
 	public Double scoreavg(int ttr_no) throws SQLException {
 		double avg=musicalDAO.scoreavg(ttr_no);
 		return avg;
+	}
+
+	@Override
+	public void insertzzim(String mem_id, int ttr_no) throws SQLException {
+		musicalDAO.insertzzim(mem_id, ttr_no);		
+	}
+
+	@Override
+	public void deletezzim(String mem_id, int ttr_no) throws SQLException {
+		musicalDAO.deletezzim(mem_id, ttr_no);		
+	}
+
+	@Override
+	public ZzimVO selectzzin(String mem_id, int ttr_no) throws SQLException {
+		ZzimVO zzim=musicalDAO.selectzzin(mem_id, ttr_no);
+		return zzim;
+	}
+
+	@Override
+	public List<MusicalVO> searchMusicalList(SearchCriteria cri)
+			throws SQLException {
+		List<MusicalVO> mcList=musicalDAO.selectsearchmusicallist(cri);
+		for (int i = 0; i < mcList.size(); i++) {
+			MusicalVO bef = mcList.get(i);
+			String thumb = musicalDAO.selectThumb(bef.getTtr_no());
+			bef.setThumb_name(thumb);
+			mcList.set(i, bef);
+		}
+		;
+		return mcList;
 	}
 	
 	

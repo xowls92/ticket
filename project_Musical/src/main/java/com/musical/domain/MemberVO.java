@@ -13,6 +13,7 @@ public class MemberVO {
 	private String mem_mobile;
 	private String mem_addr;
 	private Date mem_date;
+	
 	public String getMem_id() {
 		return mem_id;
 	}

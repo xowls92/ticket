@@ -5,10 +5,12 @@
 	<typeAliases>
 		<typeAlias alias="str" type="java.lang.String" />
 		<typeAlias alias="int" type="java.lang.Integer" />
+		<typeAlias alias="dub" type="java.lang.Double" />
 		<typeAlias alias="mc" type="com.musical.domain.MusicalVO" />
 		<typeAlias alias="Res" type="com.musical.domain.ReservationVO" />
 		<typeAlias alias="seatinfo" type="com.musical.domain.Seatinfo"/>
 		<typeAlias alias="reply" type="com.musical.domain.ReplyVO" />
+		<typeAlias alias="zzim" type="com.musical.domain.ZzimVO" />
 	</typeAliases>
 	
 </configuration>

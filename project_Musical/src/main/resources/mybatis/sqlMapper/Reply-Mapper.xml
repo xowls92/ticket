@@ -27,4 +27,5 @@
 	<select id="countReply" resultType="int">
 		select count(ttr_no) from theater_reply where ttr_no=#{ttr_no}
 	</select>
+	
 </mapper>

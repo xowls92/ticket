@@ -38,16 +38,16 @@
 </head>
 <body>
 
-<form id="write" method="post">
+<form id="res-write" method="post">
 		<input type="hidden" name="ttr_no" value="${musicalVO.ttr_no}">
 		<input type="hidden" name="ttr_cat" value="${musicalVO.ttr_cat}">
 		
 		<label>썸네일</label>
 		<div class="thumb"
-			style="width: 200px; height: 200px; background-color: blue;"></div>
+			style="width: 200px; height: 200px; background-color: white;"></div>
 		<label>좌석배치도</label>
 		<div class="seatmap"
-			style="width: 200px; height: 200px; background-color: blue;"></div>
+			style="width: 200px; height: 200px; background-color: white;"></div>
 		<div>
 			<label>제목</label> <input type="text" name="ttr_title"
 				value="${musicalVO.ttr_title}" readonly>
@@ -78,7 +78,7 @@
 		<img id="popup_img" />
 	</div>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="/resources/js/upload.js"></script>
+<script src="/com/resources/js/upload.js"></script>
 <script>
 $(document).ready(function(){
 	var seats=null;
@@ -136,7 +136,7 @@ var ttr_no=${musicalVO.ttr_no};
 		$(this).parent('div').children('label').children("input[value='"+reserved[i]+"']").prop('checked', false);
 		$(this).parent('div').children('label').children("input[value='"+reserved[i]+"']").prop('disabled', false);
 		var seat_id=$(this).attr('seat_id');
-		$.getJSON("/mboard/reserve/"+seat_id,function(res){
+		$.getJSON("/com/createRes/"+seat_id,function(res){
 			for(var i=0;i<res.length;i++){
 				reserved[i]=seat_id+"_"+res[i];
 			}
@@ -149,9 +149,6 @@ var ttr_no=${musicalVO.ttr_no};
 		})
 	})
 		
-		
-	
-	
 </script>
 </body>
 </html>

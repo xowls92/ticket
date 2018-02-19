@@ -11,6 +11,7 @@ import com.musical.dao.MusicalDAO;
 import com.musical.domain.MusicalVO;
 import com.musical.domain.SearchCriteria;
 import com.musical.domain.Seatinfo;
+import com.musical.domain.ZzimVO;
 
 public class MusicalDAOImpl implements MusicalDAO{
 	
@@ -183,6 +184,38 @@ public class MusicalDAOImpl implements MusicalDAO{
 	public Double scoreavg(int ttr_no) throws SQLException {
 		double avg=(double) sqlSession.selectOne(NAMESPACE+".scoreavg",ttr_no);
 		return avg;
+	}
+
+	@Override
+	public void insertzzim(String mem_id, int ttr_no) throws SQLException {
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("mem_id",mem_id);
+		paramMap.put("ttr_no",ttr_no);
+		sqlSession.update(NAMESPACE+".insertzzim",paramMap);
+	}
+
+	@Override
+	public void deletezzim(String mem_id, int ttr_no) throws SQLException {
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("mem_id",mem_id);
+		paramMap.put("ttr_no",ttr_no);
+		sqlSession.update(NAMESPACE+".deletezzim",paramMap);	
+	}
+
+	@Override
+	public ZzimVO selectzzin(String mem_id, int ttr_no) throws SQLException {
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("mem_id",mem_id);
+		paramMap.put("ttr_no",ttr_no);
+		ZzimVO zzim=(ZzimVO) sqlSession.selectOne(NAMESPACE+".selectzzim",paramMap);
+		return zzim;
+	}
+
+	@Override
+	public List<MusicalVO> selectsearchmusicallist(SearchCriteria cri)
+			throws SQLException {
+		List<MusicalVO> mclist=sqlSession.selectList(NAMESPACE+".selectSearchMusicalList",cri);
+		return mclist;
 	}
 
 	

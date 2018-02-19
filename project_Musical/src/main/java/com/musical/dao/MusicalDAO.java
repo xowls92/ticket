@@ -6,6 +6,7 @@ import java.util.List;
 import com.musical.domain.MusicalVO;
 import com.musical.domain.SearchCriteria;
 import com.musical.domain.Seatinfo;
+import com.musical.domain.ZzimVO;
 
 public interface MusicalDAO {
 
@@ -44,5 +45,11 @@ public interface MusicalDAO {
 	Seatinfo selectseatbyseat_id(String seat_id) throws SQLException;
 	List<Seatinfo> selectseat() throws SQLException;
 	
+	void insertzzim(String mem_id,int ttr_no) throws SQLException;
+	void deletezzim(String mem_id,int ttr_no) throws SQLException;
+	ZzimVO selectzzin(String mem_id,int ttr_no) throws SQLException;
+	
 	Double scoreavg(int ttr_no) throws SQLException;
+
+	List<MusicalVO> selectsearchmusicallist(SearchCriteria cri) throws SQLException;
 }
